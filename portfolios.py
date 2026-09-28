@@ -12,17 +12,30 @@ from app.schemas import (
 from app.services.portfolio_service import (
     portfolio_service
 )
-from app.services.performance_service import performance_service
 
-from app.services.transaction_service import transaction_service
-from app.services.allocation_service import allocation_service
-from app.services.alert_service import alert_service
-from app.services.rebalancing_service import rebalancing_service
+from app.services.transaction_service import (
+    transaction_service
+)
+
+from app.services.allocation_service import (
+    allocation_service
+)
+
+from app.services.alert_service import (
+    alert_service
+)
+
+from app.services.rebalancing_service import (
+    rebalancing_service
+)
+
+from app.services.performance_service import (
+    performance_service
+)
+
 
 router = APIRouter(
-
     prefix="/api/portfolios",
-
     tags=["Portfolios"]
 )
 
@@ -45,7 +58,6 @@ def create_portfolio(
             )
         )
 
-
     except ValueError as error:
 
         raise HTTPException(
@@ -55,7 +67,7 @@ def create_portfolio(
 
 
 # =========================================================
-# GET ALL
+# GET ALL PORTFOLIOS
 # =========================================================
 
 @router.get("")
@@ -68,9 +80,7 @@ def get_all_portfolios():
 
 
 # =========================================================
-# ACTIVATE
-#
-# Keep this above /{portfolio_id}
+# ACTIVATE PORTFOLIO
 # =========================================================
 
 @router.put(
@@ -89,13 +99,13 @@ def activate_portfolio(
             )
         )
 
-
     except ValueError as error:
 
         raise HTTPException(
             status_code=400,
             detail=str(error)
         )
+
 
 # =========================================================
 # BUY SECURITY
@@ -126,6 +136,7 @@ def buy_security(
             detail=str(error)
         )
 
+
 # =========================================================
 # SELL SECURITY
 # =========================================================
@@ -154,7 +165,8 @@ def sell_security(
             status_code=400,
             detail=str(error)
         )
-    
+
+
 # =========================================================
 # PORTFOLIO HOLDINGS
 # =========================================================
@@ -212,34 +224,6 @@ def get_transactions(
 
 
 # =========================================================
-# GET ONE
-# =========================================================
-
-@router.get(
-    "/{portfolio_id}"
-)
-def get_portfolio(
-    portfolio_id: int
-):
-
-    try:
-
-        return (
-            portfolio_service
-            .get_portfolio(
-                portfolio_id
-            )
-        )
-
-
-    except ValueError as error:
-
-        raise HTTPException(
-            status_code=404,
-            detail=str(error)
-        )
-
-# =========================================================
 # PORTFOLIO ASSET ALLOCATION
 # =========================================================
 
@@ -270,8 +254,8 @@ def get_portfolio_allocation(
 # =========================================================
 # RECALCULATE ALERTS
 #
-# Testing endpoint.
-# Later BUY/SELL will call this automatically.
+# Mainly useful for Swagger/testing.
+# BUY and SELL already recalculate automatically.
 # =========================================================
 
 @router.post(
@@ -309,40 +293,12 @@ def get_portfolio_alerts(
     portfolio_id: int
 ):
 
-    return (
-        alert_service
-        .get_portfolio_alerts(
-            portfolio_id
-        )
-    )
-
-
-# =========================================================
-# REBALANCING SECURITY SUGGESTIONS
-# =========================================================
-
-@router.get(
-    "/{portfolio_id}/rebalancing/"
-    "{asset_class_id}/suggestions"
-)
-def get_rebalancing_suggestions(
-
-    portfolio_id: int,
-
-    asset_class_id: int
-
-):
-
     try:
 
         return (
-            rebalancing_service
-            .get_suggestions(
-
-                portfolio_id,
-
-                asset_class_id
-
+            alert_service
+            .get_portfolio_alerts(
+                portfolio_id
             )
         )
 
@@ -352,3 +308,87 @@ def get_rebalancing_suggestions(
             status_code=400,
             detail=str(error)
         )
+
+
+# =========================================================
+# REBALANCING
+# =========================================================
+
+@router.get(
+    "/{portfolio_id}/rebalancing"
+)
+def get_rebalancing(
+    portfolio_id: int
+):
+
+    try:
+
+        return (
+            rebalancing_service
+            .get_rebalancing(
+                portfolio_id
+            )
+        )
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        )
+# =========================================================
+# PORTFOLIO PERFORMANCE
+# =========================================================
+
+@router.get(
+    "/{portfolio_id}/performance"
+)
+def get_portfolio_performance(
+    portfolio_id: int
+):
+
+    try:
+
+        return (
+            performance_service
+            .get_performance(
+                portfolio_id
+            )
+        )
+
+    except ValueError as error:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        )
+
+
+# =========================================================
+# GET ONE PORTFOLIO
+#
+# Keeping this at the bottom makes the specific routes
+# above easier to read and maintain.
+# =========================================================
+
+@router.get(
+    "/{portfolio_id}"
+)
+def get_portfolio(
+    portfolio_id: int
+):
+
+    try:
+
+        return (
+            portfolio_service
+            .get_portfolio(
+                portfolio_id
+            )
+        )
+
+    except ValueError as error:
+
+        raise HTTPException(
+            status_code=404,
+            detail=str(error)
+        )
+    
