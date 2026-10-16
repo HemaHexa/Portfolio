@@ -1,0 +1,93 @@
+### Portfolio Management System — Presentation Script
+
+### Slide 1: Introduction
+
+Good morning everyone. We are Hema Meena R and Jayashri K.
+
+Today, we are presenting our project, Portfolio Management System, a three-tier web application designed to simplify investment portfolio management.
+
+Our system helps fund managers create portfolios, manage securities, monitor asset allocation, generate alerts, and compare portfolio performance with the NIFTY 50 benchmark.
+
+### Slide 2: Roles and Technologies
+
+Our application supports two main functions: fund manager operations and automated system calculations.
+
+The fund manager can create portfolios, buy and sell securities, view holdings and transactions, monitor asset allocation, and review alerts and rebalancing recommendations.
+
+The system calculates portfolio value and profit or loss, validates investment theme limits, updates holdings, and monitors allocation deviations.
+
+For technologies, we use React and CSS for the frontend, Python and FastAPI for the backend, and PostgreSQL for database management.
+
+### Slide 3: System Architecture
+
+Our project follows a three-tier architecture.
+
+* Presentation Layer: Built using React and CSS. It provides the dashboard, Security Master, portfolio screens, holdings, alerts, and performance charts.
+
+* Application Layer: Built using Python and FastAPI. It handles business logic, transactions, allocation calculations, alerts, rebalancing, and benchmark comparisons.
+
+* Data Layer: Uses PostgreSQL to store securities, market prices, benchmarks, portfolios, holdings, transactions, and alerts.
+
+The frontend communicates with the backend through REST APIs using JSON, while the backend interacts with PostgreSQL using SQL queries.
+
+This architecture makes the application modular and easier to maintain.
+
+### Slide 4: Workflow
+
+First, the fund manager accesses the dashboard and searches for securities in the Unified Security Master.
+
+Next, the manager creates a portfolio and adds securities through buy transactions. The system updates holdings and calculates portfolio values.
+
+It then monitors the actual asset allocation against the target allocation. If the deviation exceeds the configured 5% threshold, the system generates an alert and provides rebalancing recommendations.
+
+Finally, the fund manager can review portfolio performance and compare returns against the NIFTY 50 benchmark.
+
+### Slide 5: Implementation
+
+Our application supports the main CRUD operations: Create, Read, Update, and Delete.
+
+* Create: Create portfolios, manage master data, and record buy or sell transactions.
+
+* Read: View securities, portfolios, holdings, transactions, asset allocation, alerts, and performance reports.
+
+* Update: Update master data and recalculate holdings, balances, and asset allocation after transactions.
+
+* Delete: Deactivate or remove applicable records according to the system's rules.
+
+We have also implemented the benchmark functionality for all three exchanges, allowing the system to retrieve and use benchmark information for performance comparison.
+
+The backend uses FastAPI endpoints, PostgreSQL for persistent storage, and Pydantic for input validation.
+
+### Slide 6: Conclusion
+
+To conclude, our Portfolio Management System brings portfolio creation, transaction management, asset allocation monitoring, alerts, rebalancing recommendations, and benchmark comparison into one application.
+
+By automating calculations and monitoring allocation deviations, it reduces manual effort and helps fund managers make more informed investment decisions.
+
+Thank you for your time. We are happy to answer any questions.
+
+### Important viva questions
+
+1\. What is the main objective of your project?
+
+To simplify portfolio management by centralizing investments, transactions, allocation monitoring, alerts, and performance comparison.
+
+2\. What is a benchmark?
+
+A benchmark is a reference index used to evaluate portfolio performance. Our system includes benchmark functionality for all three exchanges.
+
+3\. What is rebalancing?
+
+Rebalancing means adjusting portfolio holdings to bring the actual allocation closer to the target allocation.
+
+4\. What happens when allocation deviation exceeds 5%?
+
+The system generates an alert and provides rebalancing recommendations based on its configured rules.
+
+5\. Why did you use a three-tier architecture?
+
+It separates the user interface, business logic, and database, making the system easier to maintain and extend.
+
+6\. What is the role of the Unified Security Master?
+
+It provides centralized security information used when searching for securities and managing portfolio holdings.
